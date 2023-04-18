@@ -22,7 +22,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Checkout.razor" />
     <_ContentIncludedByDefault Remove="Shared\ConfigurePizzaDialog.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Checkout.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Checkout.razor" />
   </ItemGroup>
   
 </Project>
