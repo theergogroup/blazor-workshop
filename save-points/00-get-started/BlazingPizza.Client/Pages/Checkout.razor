@@ -1,8 +1,9 @@
 ﻿@page "/checkout"
 @inject OrderState OrderState
-@inject HttpClient HttpClient
+@*@inject HttpClient HttpClient*@
+@inject OrdersClient OrdersClient
 @inject NavigationManager NavigationManager
-
+@attribute [Authorize]
 <PageTitle>Blazing Pizza - Checkout</PageTitle>
 
 <div class="main">
@@ -35,10 +36,16 @@
     async Task PlaceOrder()
     {
         isSubmitting = true;
-        var response = await HttpClient.PostAsJsonAsync("orders", OrderState.Order);
-        var newOrderId = await response.Content.ReadFromJsonAsync<int>();
-        OrderState.ResetOrder();
 
-        NavigationManager.NavigateTo($"myorders/{newOrderId}");
+        try
+        {
+            var newOrderId = await OrdersClient.PlaceOrder(OrderState.Order);
+            OrderState.ResetOrder();
+            NavigationManager.NavigateTo($"myorders/{newOrderId}");
+        }
+        catch (AccessTokenNotAvailableException ex)
+        {
+            ex.Redirect();
+        }
     }
 }
