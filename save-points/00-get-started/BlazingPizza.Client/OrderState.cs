@@ -41,6 +41,11 @@
             Order = new Order();
         }
 
+        public void ReplaceOrder(Order order)
+        {
+            Order = new Order();
+        }
+
         public void RemoveConfiguredPizza(Pizza pizza)
         {
             Order.Pizzas.Remove(pizza);
