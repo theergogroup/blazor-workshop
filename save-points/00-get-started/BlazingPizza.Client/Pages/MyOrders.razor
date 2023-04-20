@@ -69,6 +69,7 @@
 
     async Task<IEnumerable<OrderWithStatus>> LoadOrders()
     {
+        await Task.Delay(3000);
         var ordersWithStatus = Enumerable.Empty<OrderWithStatus>();
         try
         {
