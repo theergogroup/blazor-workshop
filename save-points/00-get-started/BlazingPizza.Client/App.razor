@@ -3,7 +3,7 @@
         <Found>
             <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)">
                 <NotAuthorized>
-                   <RedirectToLogin/>
+                    <RedirectToLogin />
                 </NotAuthorized>
                 <Authorizing>
                     <div class="main">Please wait...</div>
@@ -12,7 +12,7 @@
         </Found>
         <NotFound>
             <LayoutView Layout="typeof(MainLayout)">
-                <div class="main">Lo siento Chavo, aqui no hay nada.</div>
+                <div class="main">Sorry, there's nothing at this address.</div>
             </LayoutView>
         </NotFound>
     </Router>

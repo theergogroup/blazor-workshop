@@ -1,8 +1,11 @@
 ﻿@page "/myorders/{orderId:int}"
-
+@attribute [Authorize]
 @using System.Threading
 @inject OrdersClient OrdersClient
+@inject NavigationManager NavigationManager
 @implements IDisposable
+
+<PageTitle>Blazing Pizza - Order Details</PageTitle>
 
 <div class="main">
     @if (invalidOrder)
@@ -63,7 +66,15 @@
             {
                 orderWithStatus = await OrdersClient.GetOrder(OrderId);
                 StateHasChanged();
-                await Task.Delay(4000);
+
+                if (orderWithStatus.IsDelivered)
+                {
+                    pollingCancellationToken.Cancel();
+                }
+                else
+                {
+                    await Task.Delay(4000);
+                }
             }
             catch (AccessTokenNotAvailableException ex)
             {
