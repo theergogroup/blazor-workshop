@@ -1,0 +1,9 @@
+﻿@inject NavigationManager Navigation
+
+@code {
+    protected override void OnInitialized()
+    {
+        //TODO: Satinize Uri
+        Navigation.NavigateTo($"authentication/login?returnUrl={Navigation.Uri}");
+    }
+}
