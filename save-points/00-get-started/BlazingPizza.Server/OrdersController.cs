@@ -1,7 +1,9 @@
 ﻿using System.Security.Claims;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebPush;
 
 namespace BlazingPizza.Server;
 
@@ -102,9 +104,28 @@ public class OrdersController : Controller
         await SendNotificationAsync(order, subscription, "Your order is now delivered. Enjoy!");
     }
 
-    private static Task SendNotificationAsync(Order order, NotificationSubscription subscription, string message)
+    private static async Task SendNotificationAsync(Order order, NotificationSubscription subscription, string message)
     {
-        // This will be implemented later
-        return Task.CompletedTask;
+        // For a real application, generate your own
+        //You can generate the cryptographic keys either locally on your workstation, or online using a tool such as https://tools.reactpwa.com/vapid. I
+        var publicKey = "BDhFD3qMYMDOw6r6nslDODrBDm42G8iDJZkAWF9nmwBec-3pEnnC0NKZEf41g0HFy0EC_wYKz69jZjddkHByE1U";
+        var privateKey = "rY65OfB7h60Q_xjwWJM84Tzp_q4ZykNO1VmP0Cnh8gc";
+
+        var pushSubscription = new PushSubscription(subscription.Url, subscription.P256dh, subscription.Auth);
+        var vapidDetails = new VapidDetails("mailto:<asereware@yahoo.com>", publicKey, privateKey);
+        var webPushClient = new WebPushClient();
+        try
+        {
+            var payload = JsonSerializer.Serialize(new
+            {
+                message,
+                url = $"myorders/{order.OrderId}",
+            });
+            await webPushClient.SendNotificationAsync(pushSubscription, payload, vapidDetails);
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine("Error sending push notification: " + ex.Message);
+        }
     }
 }

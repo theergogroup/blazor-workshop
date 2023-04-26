@@ -2,6 +2,14 @@
 
 public class Address
 {
+    public Address()
+    {
+        Name = "Asereware";
+        Line1 = "Km 32 Carretera Malinalco Chalma";
+        City = "Malinalco";
+        Region = "EDOMEX, México";
+        PostalCode = "52464";
+    }
     public int Id { get; set; }
 
     [Required, MaxLength(100)]
