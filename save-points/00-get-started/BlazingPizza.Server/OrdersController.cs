@@ -107,8 +107,8 @@ public class OrdersController : Controller
     private static async Task SendNotificationAsync(Order order, NotificationSubscription subscription, string message)
     {
         // For a real application, generate your own
-        var publicKey = "BLC8GOevpcpjQiLkO7JmVClQjycvTCYWm6Cq_a7wJZlstGTVZvwGFFHMYfXt6Njyvgx_GlXJeo5cSiZ1y4JOx1o";
-        var privateKey = "OrubzSz3yWACscZXjFQrrtDwCKg-TGFuWhluQ2wLXDo";
+        var publicKey = "BLC8GOevpcpjQiLkO7JmVClQjycvTCYWm6Cq_a7wJZlstGTVZvwGFFHMYfXt6Njyvgx_GlXJeo5cSiZ1y4JOx1o";//"BBscS7m5BT5aoQmEGieqYixqB73KPhFqaqL9Vprm8PxBlI-wdL7XVfBBa7PZILWF8BQ8BtvYwVojnQ3Z56Ar7yE"; // 
+        var privateKey = "OrubzSz3yWACscZXjFQrrtDwCKg-TGFuWhluQ2wLXDo"; //"KEEdnv1t08v45mdqokhxcK2PghswGOEjFpkWP19nwFM"; //
 
         var pushSubscription = new PushSubscription(subscription.Url, subscription.P256dh, subscription.Auth);
         var vapidDetails = new VapidDetails("mailto:<someone@example.com>", publicKey, privateKey);

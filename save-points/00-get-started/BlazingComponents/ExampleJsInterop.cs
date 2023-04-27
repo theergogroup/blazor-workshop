@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Microsoft.JSInterop;
 
 namespace BlazingComponents
@@ -32,6 +34,11 @@ namespace BlazingComponents
                 var module = await moduleTask.Value;
                 await module.DisposeAsync();
             }
+        }
+
+        ValueTask IAsyncDisposable.DisposeAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }
